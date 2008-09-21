@@ -61,6 +61,12 @@ spec = Gem::Specification.new do |spec|
   spec.files =  Dir.glob("{examples,lib,spec,vendor,data}/**/**/*") +
                       ["Rakefile"]
   spec.require_path = "lib"
+
+  if spec.respond_to?(:add_development_dependency)
+    spec.add_development_dependency('fastercsv') 
+    spec.add_development_dependency('ruport') 
+    spec.add_development_dependency('validate_options') 
+  end
   
   spec.test_files = Dir[ "test/*_test.rb" ]
   spec.has_rdoc = true

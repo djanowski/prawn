@@ -12,6 +12,12 @@ end
 
 require 'ttf'
 
+begin
+  require 'validate_options'
+rescue LoadError
+  def validate_options(*args); end
+end
+
 module Prawn 
   file = __FILE__
   file = File.readlink(file) if File.symlink?(file)
@@ -21,15 +27,6 @@ module Prawn
   BASEDIR = File.expand_path(File.join(dir, '..'))  
   
   extend self
-  
-  def verify_options(accepted,actual) #:nodoc:                    
-    require "set"
-    unless (act=Set[*actual.keys]).subset?(acc=Set[*accepted])
-      raise Prawn::Errors::UnknownOption, 
-        "\nDetected unknown option(s): #{(act - acc).to_a.inspect}\n" <<
-        "Accepted options are: #{accepted.inspect}"
-    end    
-  end      
   
   module Configurable #:nodoc:
     def configuration(*args)

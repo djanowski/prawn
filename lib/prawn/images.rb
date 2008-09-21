@@ -37,7 +37,7 @@ module Prawn
     # fit the dimensions without maintaining the aspect ratio.
     #
     def image(filename, options={})     
-      Prawn.verify_options [:at,:position, :height, :width, :scale], options
+      validate_options options, :at, :position, :height, :width, :scale
       raise ArgumentError, "#{filename} not found" unless File.file?(filename)  
       
       image_content =  File.read_binary(filename)

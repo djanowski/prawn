@@ -77,9 +77,9 @@ module Prawn
     #   pdf = Prawn::Document.new(:page_size => "A4", :page_layout => :landscape)    
     #
     def initialize(options={},&block)   
-       Prawn.verify_options [:page_size, :page_layout, :on_page_start,
+       validate_options options, :page_size, :page_layout, :on_page_start,
          :on_page_stop, :left_margin, :right_margin, :top_margin,
-         :bottom_margin, :skip_page_creation, :compress ], options
+         :bottom_margin, :skip_page_creation, :compress
          
        @objects = []
        @info    = ref(:Creator => "Prawn", :Producer => "Prawn")

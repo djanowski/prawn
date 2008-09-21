@@ -1,7 +1,12 @@
 module Prawn
   class Document
     def span(width, options={})
-      Prawn.verify_options [:position], options
+      validate_options options, :position do |op|
+        raise "position must be either :left, :center, :right or a number." unless opts[:position].nil? || 
+          [:left, :center, :right].include?(opts[:position]) || 
+          Numeric === opts[:position]
+      end
+
       original_position = self.y      
       
       # FIXME: How many effing times do I want to write this same code?
@@ -14,8 +19,6 @@ module Prawn
         margin_box.absolute_right - width
       when Numeric
         margin_box.absolute_left + options[:position]
-      else
-        raise ArgumentError, "Invalid option for :position"
       end
       
       # we need to bust out of whatever nested bounding boxes we're in.

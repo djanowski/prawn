@@ -109,10 +109,10 @@ module Prawn
         @data     = data        
         @document = document
         
-        Prawn.verify_options [:font_size,:border_style, :border_width,
+        validate_options options, :font_size, :border_style, :border_width,
          :position, :headers, :row_colors, :align, :align_headers, 
          :horizontal_padding, :vertical_padding, :padding, :widths, 
-         :header_color ], options     
+         :header_color
                                             
         configuration.update(options)  
 
